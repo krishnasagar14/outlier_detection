@@ -1,0 +1,19 @@
+py_env:
+	cd od_py
+	python -m venv pyenv_od
+	cd ..
+
+proto:
+	mkdir od_go
+	cd od_py
+	pyenv_od/Scripts/activate
+	python -m grpc_tools.protoc \
+    -I.. --python_out=. --grpc_python_out=. \
+    ../outliers.proto
+	python outlier_detection.py &
+	cd ..
+
+all:
+	include proto
+	go generate
+	go run client.go
