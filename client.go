@@ -9,7 +9,7 @@ import (
 	"google.golang.org/grpc"
 	pbtime "google.golang.org/protobuf/types/known/timestamppb"
 
-	"od_go"
+	"github.com/outlier_detection/od_go"
 )
 
 func main() {
@@ -36,11 +36,11 @@ func dummyData() []*od_go.Metric {
 	const size = 1000
 	out := make([]*od_go.Metric, size)
 	t := time.Date(2020, 6, 15, 16, 20, 15, 0, time.UTC)
-	for i := 0, i < size; i++ {
+	for i := 0; i < size; i++ {
 		m := od_go.Metric{
-			Time: Timestamp(t),
-			Name: "CPU",
-			Value: rand.Float64() * 40
+			Time:  Timestamp(t),
+			Name:  "CPU",
+			Value: rand.Float64() * 40,
 		}
 		out[i] = &m
 		t.Add(time.Second)
@@ -54,6 +54,6 @@ func dummyData() []*od_go.Metric {
 func Timestamp(t time.Time) *pbtime.Timestamp {
 	return &pbtime.Timestamp{
 		Seconds: t.Unix(),
-		Nanos: int32(t.Nanosecond()),
+		Nanos:   int32(t.Nanosecond()),
 	}
 }

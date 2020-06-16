@@ -14,7 +14,7 @@ class OutliersStub(object):
             channel: A grpc.Channel.
         """
         self.Detect = channel.unary_unary(
-                '/pb.Outliers/Detect',
+                '/od_go.Outliers/Detect',
                 request_serializer=outliers__pb2.OutliersRequest.SerializeToString,
                 response_deserializer=outliers__pb2.OutliersResponse.FromString,
                 )
@@ -39,7 +39,7 @@ def add_OutliersServicer_to_server(servicer, server):
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'pb.Outliers', rpc_method_handlers)
+            'od_go.Outliers', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
@@ -57,7 +57,7 @@ class Outliers(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/pb.Outliers/Detect',
+        return grpc.experimental.unary_unary(request, target, '/od_go.Outliers/Detect',
             outliers__pb2.OutliersRequest.SerializeToString,
             outliers__pb2.OutliersResponse.FromString,
             options, channel_credentials,
